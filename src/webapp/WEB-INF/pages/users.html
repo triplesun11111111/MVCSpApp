@@ -100,7 +100,7 @@
         <td th:text="${user.getAge()}"></td>
 
         <td>
-            <form th:method="GET" th:action="@{/spring_mvc_war_exploded/users/{id}/edit(id=${user.id})}">
+            <form th:method="POST" th:action="@{/users/edit(id=${user.id})}" th:object="${user}">
                 <input type="submit" value="EDIT USER"/>
             </form>
         </td>

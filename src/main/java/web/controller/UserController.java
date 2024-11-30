@@ -38,7 +38,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/users/edit")
     public String showEditForm(@RequestParam("id") int id, Model model) {
         User user = userService.getUsers().stream()
                 .filter(u -> u.getId() == id)
@@ -50,10 +50,14 @@ public class UserController {
         return "edit";
     }
 
-    @PostMapping("/users/{id}/edit")
+    @PostMapping("/users/edit")
     public String updateUser(@RequestParam("id") int id, @ModelAttribute User user) {
-        userService.updateUser(user);
-        return "redirect:/";
+        User existingUser = userService.getUser(id);
+        existingUser.setName(user.getName());
+        existingUser.setSurname(user.getSurname());
+        existingUser.setAge(user.getAge());
+        userService.updateUser(existingUser);
+        return "edit";
     }
 
 
